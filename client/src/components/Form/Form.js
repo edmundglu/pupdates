@@ -90,7 +90,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <TextField
           name='tags'
           variant='outlined'
-          label='Tags'
+          label='Tags (Do not include spaces)'
           fullWidth
           value={postData.tags}
           onChange={(e) =>
@@ -101,30 +101,31 @@ const Form = ({ currentId, setCurrentId }) => {
           <FileBase
             type='file'
             multiple={false}
+            fullWidth
             onDone={({ base64 }) =>
               setPostData({ ...postData, selectedFile: base64 })
             }
           />
-          <Button
-            className={classes.buttonSubmit}
-            variant='contained'
-            color='primary'
-            size='large'
-            type='submit'
-            fullWidth
-          >
-            Submit
-          </Button>
-          <Button
-            variant='contained'
-            color='secondary'
-            size='small'
-            onClick={clear}
-            fullWidth
-          >
-            Clear
-          </Button>
         </div>
+        <Button
+          className={classes.buttonSubmit}
+          variant='contained'
+          color='primary'
+          size='large'
+          type='submit'
+          fullWidth
+        >
+          Submit
+        </Button>
+        <Button
+          variant='contained'
+          color='secondary'
+          size='small'
+          onClick={clear}
+          fullWidth
+        >
+          Clear
+        </Button>
       </form>
     </Paper>
   );

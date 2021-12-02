@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, Button, Avatar } from '@material-ui/core';
+import {
+  AppBar,
+  alpha,
+  Badge,
+  InputBase,
+  Typography,
+  Toolbar,
+  Button,
+  Avatar,
+} from '@material-ui/core';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
 import useStyles from './styles';
-import updates from '../../images/updates.jpg';
+import updates from '../../images/updates.png';
 
 export const Navbar = () => {
   const classes = useStyles();
@@ -25,28 +35,34 @@ export const Navbar = () => {
     const token = user?.token;
     //JWT..
 
+    if (token) {
+      const decodedToken = decode(token);
+
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
     //when location changes, set the user
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position='static' color='inherit'>
+    <AppBar className={classes.appBar} position='static'>
       <div className={classes.brandContainer}>
-        <Typography
-          component={Link}
-          to='/'
-          className={classes.heading}
-          variant='h2'
-          align='center'
-        >
-          Pupdates
-        </Typography>
         <img
           className={classes.image}
           src={updates}
           alt='updates'
           height='60'
         />{' '}
+        <Typography
+          component={Link}
+          to='/'
+          className={classes.heading}
+          variant='h4'
+          align='center'
+        >
+          Pupdates
+        </Typography>
       </div>
       <Toolbar className={classes.toolbar}>
         {user ? (

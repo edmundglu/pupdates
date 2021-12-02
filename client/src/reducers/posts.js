@@ -3,7 +3,7 @@ import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes';
 //reducer = state, action
 // state is an array of posts & we are in the posts in reducers
 //exporting to use in reducers/index.js
-export default (posts = [], action) => {
+const reducer = (posts = [], action) => {
   switch (action.type) {
     case DELETE:
       return posts.filter((post) => post._id !== action.payload);
@@ -22,3 +22,5 @@ export default (posts = [], action) => {
       return posts;
   }
 };
+
+export default reducer;
